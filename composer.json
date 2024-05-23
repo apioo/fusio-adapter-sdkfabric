@@ -1,0 +1,37 @@
+{
+  "name": "fusio/adapter-sdkfabric",
+  "description": "Provides a connection to the SDKFabric platform",
+  "homepage": "https://www.fusio-project.org",
+  "keywords": ["fusio-adapter"],
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Christoph Kappestein",
+      "email": "christoph.kappestein@gmail.com",
+      "homepage": "https://chrisk.app"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "fusio/engine": "^6.0",
+    "sdkfabric/twitter": "^3.0",
+    "sdkfabric/discord": "^0.2",
+    "sdkfabric/airtable": "^0.2",
+    "sdkfabric/notion": "^0.1",
+    "sdkfabric/starwars": "^0.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0",
+    "vimeo/psalm": "^5.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fusio\\Adapter\\SdkFabric\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Fusio\\Adapter\\SdkFabric\\Tests\\": "tests/"
+    }
+  }
+}
