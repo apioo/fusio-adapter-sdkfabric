@@ -20,12 +20,16 @@
 
 namespace Fusio\Adapter\SdkFabric\Connection;
 
+use Fusio\Adapter\SdkFabric\Introspection\TypeHubIntrospector;
+use Fusio\Engine\Connection\IntrospectableInterface;
+use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
 use Fusio\Engine\Connection\OAuth2Interface;
 use Fusio\Engine\ConnectionAbstract;
 use Fusio\Engine\Exception\ConfigurationException;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
+use PSX\Http\Client\ClientInterface;
 
 /**
  * OAuth2ConnectionAbstract
@@ -34,8 +38,15 @@ use Fusio\Engine\ParametersInterface;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    https://www.fusio-project.org/
  */
-abstract class OAuth2ConnectionAbstract extends ConnectionAbstract implements OAuth2Interface
+abstract class OAuth2ConnectionAbstract extends ConnectionAbstract implements OAuth2Interface, IntrospectableInterface
 {
+    private ClientInterface $httpClient;
+
+    public function __construct(ClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
     public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory): void
     {
         $builder->add($elementFactory->newInput('client_id', 'Client-ID', 'text', 'The client id'));
@@ -55,6 +66,11 @@ abstract class OAuth2ConnectionAbstract extends ConnectionAbstract implements OA
     public function getRefreshTokenParameters(array $params): array
     {
         return $params;
+    }
+
+    public function getIntrospector(mixed $connection): IntrospectorInterface
+    {
+        return new TypeHubIntrospector($this->httpClient, strtolower((new \ReflectionClass(static::class))->getShortName()));
     }
 
     protected function getAccessToken(ParametersInterface $config): string

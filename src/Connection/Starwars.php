@@ -20,7 +20,6 @@
 
 namespace Fusio\Adapter\SdkFabric\Connection;
 
-use Fusio\Engine\ConnectionAbstract;
 use Fusio\Engine\ParametersInterface;
 use SdkFabric\Starwars\Client;
 
@@ -31,7 +30,7 @@ use SdkFabric\Starwars\Client;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    https://www.fusio-project.org/
  */
-class Starwars extends ConnectionAbstract
+class Starwars extends AnonymousConnectionAbstract
 {
     public function getName(): string
     {
