@@ -61,7 +61,8 @@ abstract class OAuth2ConnectionAbstract extends ConnectionAbstract implements OA
     {
         $accessToken = $config->get('access_token');
         if (empty($accessToken)) {
-            throw new ConfigurationException('No access token was provided');
+            // on creation we have no access token the user needs obtain this later on
+            return '';
         }
 
         return $accessToken;
