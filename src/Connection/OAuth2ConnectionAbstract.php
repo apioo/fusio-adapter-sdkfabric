@@ -47,6 +47,11 @@ abstract class OAuth2ConnectionAbstract extends ConnectionAbstract implements OA
         return $params;
     }
 
+    public function getAuthorizationCodeParameters(array $params): array
+    {
+        return $params;
+    }
+
     public function getRefreshTokenParameters(array $params): array
     {
         return $params;
