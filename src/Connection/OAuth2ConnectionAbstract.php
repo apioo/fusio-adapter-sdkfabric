@@ -24,7 +24,7 @@ use Fusio\Adapter\SdkFabric\Introspection\TypeHubIntrospector;
 use Fusio\Engine\Connection\IntrospectableInterface;
 use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
 use Fusio\Engine\Connection\OAuth2ConnectionAbstract as EngineOAuth2ConnectionAbstract;
-use PSX\Http\Client\ClientInterface;
+use PSX\Http\Client\Client;
 
 /**
  * OAuth2ConnectionAbstract
@@ -35,15 +35,8 @@ use PSX\Http\Client\ClientInterface;
  */
 abstract class OAuth2ConnectionAbstract extends EngineOAuth2ConnectionAbstract implements IntrospectableInterface
 {
-    private ClientInterface $httpClient;
-
-    public function __construct(ClientInterface $httpClient)
-    {
-        $this->httpClient = $httpClient;
-    }
-
     public function getIntrospector(mixed $connection): IntrospectorInterface
     {
-        return new TypeHubIntrospector($this->httpClient, strtolower((new \ReflectionClass(static::class))->getShortName()));
+        return new TypeHubIntrospector(new Client(), strtolower((new \ReflectionClass(static::class))->getShortName()));
     }
 }
