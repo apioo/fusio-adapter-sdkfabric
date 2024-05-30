@@ -52,8 +52,9 @@ class Notion extends OAuth2ConnectionAbstract
         return 'https://api.notion.com/v1/oauth/token';
     }
 
-    public function getRedirectUriParameters(array $params): array
+    public function getRedirectUriParameters(string $redirectUri, string $state, ParametersInterface $config): array
     {
+        $params = parent::getRedirectUriParameters($redirectUri, $state, $config);
         $params['owner'] = 'user';
         return $params;
     }
