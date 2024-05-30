@@ -23,12 +23,7 @@ namespace Fusio\Adapter\SdkFabric\Connection;
 use Fusio\Adapter\SdkFabric\Introspection\TypeHubIntrospector;
 use Fusio\Engine\Connection\IntrospectableInterface;
 use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
-use Fusio\Engine\Connection\OAuth2Interface;
-use Fusio\Engine\ConnectionAbstract;
-use Fusio\Engine\Exception\ConfigurationException;
-use Fusio\Engine\Form\BuilderInterface;
-use Fusio\Engine\Form\ElementFactoryInterface;
-use Fusio\Engine\ParametersInterface;
+use Fusio\Engine\Connection\OAuth2ConnectionAbstract as EngineOAuth2ConnectionAbstract;
 use PSX\Http\Client\ClientInterface;
 
 /**
@@ -38,7 +33,7 @@ use PSX\Http\Client\ClientInterface;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    https://www.fusio-project.org/
  */
-abstract class OAuth2ConnectionAbstract extends ConnectionAbstract implements OAuth2Interface, IntrospectableInterface
+abstract class OAuth2ConnectionAbstract extends EngineOAuth2ConnectionAbstract implements IntrospectableInterface
 {
     private ClientInterface $httpClient;
 
@@ -47,60 +42,8 @@ abstract class OAuth2ConnectionAbstract extends ConnectionAbstract implements OA
         $this->httpClient = $httpClient;
     }
 
-    public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory): void
-    {
-        $builder->add($elementFactory->newInput('client_id', 'Client-ID', 'text', 'The client id'));
-        $builder->add($elementFactory->newInput('client_secret', 'Client-Secret', 'password', 'The client secret'));
-    }
-
-    public function getRedirectUriParameters(array $params): array
-    {
-        return $params;
-    }
-
-    public function getAuthorizationCodeParameters(array $params): array
-    {
-        return $params;
-    }
-
-    public function getRefreshTokenParameters(array $params): array
-    {
-        return $params;
-    }
-
     public function getIntrospector(mixed $connection): IntrospectorInterface
     {
         return new TypeHubIntrospector($this->httpClient, strtolower((new \ReflectionClass(static::class))->getShortName()));
-    }
-
-    protected function getAccessToken(ParametersInterface $config): string
-    {
-        $accessToken = $config->get('access_token');
-        if (empty($accessToken)) {
-            // on creation we have no access token the user needs obtain this later on
-            return '';
-        }
-
-        return $accessToken;
-    }
-
-    protected function getClientId(ParametersInterface $config): string
-    {
-        $clientId = $config->get('client_id');
-        if (empty($clientId)) {
-            throw new ConfigurationException('No client id was provided');
-        }
-
-        return $clientId;
-    }
-
-    protected function getClientSecret(ParametersInterface $config): string
-    {
-        $clientSecret = $config->get('client_secret');
-        if (empty($clientSecret)) {
-            throw new ConfigurationException('No client secret was provided');
-        }
-
-        return $clientSecret;
     }
 }
