@@ -135,7 +135,8 @@ class TypeHubIntrospector implements IntrospectorInterface
     {
         $entity = new Entity($entityName, ['Name', 'Type', 'Format']);
 
-        foreach ($struct->getProperties() as $propertyName => $property) {
+        $properties = $struct->getProperties() ?? [];
+        foreach ($properties as $propertyName => $property) {
             $type = $this->typeToString($property);
             if ($type === null) {
                 continue;

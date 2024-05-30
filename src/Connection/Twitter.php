@@ -52,8 +52,9 @@ class Twitter extends OAuth2ConnectionAbstract
         return 'https://api.twitter.com/2/oauth2/token';
     }
 
-    public function getRedirectUriParameters(array $params): array
+    public function getRedirectUriParameters(string $redirectUri, string $state, ParametersInterface $config): array
     {
+        $params = parent::getRedirectUriParameters($redirectUri, $state, $config);
         $params['code_challenge'] = $this->generateChallenge();
         $params['code_challenge_method'] = 'S256';
         return $params;
