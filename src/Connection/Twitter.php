@@ -42,12 +42,12 @@ class Twitter extends OAuth2ConnectionAbstract
         return Client::build($this->getAccessToken($config));
     }
 
-    public function getAuthorizationUrl(): string
+    public function getAuthorizationUrl(ParametersInterface $config): string
     {
         return 'https://twitter.com/i/oauth2/authorize';
     }
 
-    public function getTokenUrl(): string
+    public function getTokenUrl(ParametersInterface $config): string
     {
         return 'https://api.twitter.com/2/oauth2/token';
     }

@@ -42,12 +42,12 @@ class Notion extends OAuth2ConnectionAbstract
         return Client::build($this->getAccessToken($config));
     }
 
-    public function getAuthorizationUrl(): string
+    public function getAuthorizationUrl(ParametersInterface $config): string
     {
         return 'https://api.notion.com/v1/oauth/authorize';
     }
 
-    public function getTokenUrl(): string
+    public function getTokenUrl(ParametersInterface $config): string
     {
         return 'https://api.notion.com/v1/oauth/token';
     }

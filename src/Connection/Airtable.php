@@ -42,12 +42,12 @@ class Airtable extends OAuth2ConnectionAbstract
         return Client::build($this->getAccessToken($config));
     }
 
-    public function getAuthorizationUrl(): string
+    public function getAuthorizationUrl(ParametersInterface $config): string
     {
         return 'https://airtable.com/oauth2/v1/authorize';
     }
 
-    public function getTokenUrl(): string
+    public function getTokenUrl(ParametersInterface $config): string
     {
         return 'https://airtable.com/oauth2/v1/token';
     }

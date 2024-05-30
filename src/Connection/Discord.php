@@ -42,12 +42,12 @@ class Discord extends OAuth2ConnectionAbstract
         return Client::build($this->getAccessToken($config));
     }
 
-    public function getAuthorizationUrl(): string
+    public function getAuthorizationUrl(ParametersInterface $config): string
     {
         return 'https://discord.com/oauth2/authorize';
     }
 
-    public function getTokenUrl(): string
+    public function getTokenUrl(ParametersInterface $config): string
     {
         return 'https://discord.com/api/oauth2/token';
     }
