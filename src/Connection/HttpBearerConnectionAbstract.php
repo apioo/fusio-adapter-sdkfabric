@@ -23,11 +23,12 @@ namespace Fusio\Adapter\SdkFabric\Connection;
 use Fusio\Adapter\SdkFabric\Introspection\TypeHubIntrospector;
 use Fusio\Engine\Connection\IntrospectableInterface;
 use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
+use Fusio\Engine\Connection\OAuth2Interface;
 use Fusio\Engine\ConnectionAbstract;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
-use PSX\Http\Client\ClientInterface;
+use PSX\Http\Client\Client;
 
 /**
  * HttpBearerConnectionAbstract
@@ -38,26 +39,19 @@ use PSX\Http\Client\ClientInterface;
  */
 abstract class HttpBearerConnectionAbstract extends ConnectionAbstract implements IntrospectableInterface
 {
-    private ClientInterface $httpClient;
-
-    public function __construct(ClientInterface $httpClient)
-    {
-        $this->httpClient = $httpClient;
-    }
-
     public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory): void
     {
-        $builder->add($elementFactory->newInput('access_token', 'Token', 'password', 'The access token'));
+        $builder->add($elementFactory->newInput(OAuth2Interface::CONFIG_ACCESS_TOKEN, 'Token', 'password', 'The access token'));
     }
 
     public function getIntrospector(mixed $connection): IntrospectorInterface
     {
-        return new TypeHubIntrospector($this->httpClient, strtolower((new \ReflectionClass(static::class))->getShortName()));
+        return new TypeHubIntrospector(new Client(), strtolower((new \ReflectionClass(static::class))->getShortName()));
     }
 
     protected function getAccessToken(ParametersInterface $config): string
     {
-        $accessToken = $config->get('access_token');
+        $accessToken = $config->get(OAuth2Interface::CONFIG_ACCESS_TOKEN);
         if (empty($accessToken)) {
             return '';
         }
