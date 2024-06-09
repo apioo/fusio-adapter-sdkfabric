@@ -34,7 +34,7 @@ class Starwars extends AnonymousConnectionAbstract
 {
     public function getName(): string
     {
-        return 'Starwars';
+        return 'SDK-Starwars';
     }
 
     public function getConnection(ParametersInterface $config): Client

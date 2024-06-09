@@ -34,7 +34,7 @@ class Airtable extends OAuth2ConnectionAbstract
 {
     public function getName(): string
     {
-        return 'Airtable';
+        return 'SDK-Airtable';
     }
 
     public function getConnection(ParametersInterface $config): Client

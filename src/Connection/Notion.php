@@ -34,7 +34,7 @@ class Notion extends OAuth2ConnectionAbstract
 {
     public function getName(): string
     {
-        return 'Notion';
+        return 'SDK-Notion';
     }
 
     public function getConnection(ParametersInterface $config): Client

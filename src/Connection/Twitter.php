@@ -34,7 +34,7 @@ class Twitter extends OAuth2ConnectionAbstract
 {
     public function getName(): string
     {
-        return 'Twitter';
+        return 'SDK-Twitter';
     }
 
     public function getConnection(ParametersInterface $config): Client

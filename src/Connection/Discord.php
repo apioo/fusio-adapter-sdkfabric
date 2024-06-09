@@ -34,7 +34,7 @@ class Discord extends OAuth2ConnectionAbstract
 {
     public function getName(): string
     {
-        return 'Discord';
+        return 'SDK-Discord';
     }
 
     public function getConnection(ParametersInterface $config): Client
