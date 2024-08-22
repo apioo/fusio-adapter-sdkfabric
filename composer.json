@@ -14,7 +14,7 @@
   "require": {
     "php": ">=8.1",
     "fusio/engine": "^6.0",
-    "psx/api": "^6.0",
+    "psx/api": "^6.0|^7.0",
     "sdkfabric/twitter": "^3.0",
     "sdkfabric/discord": "^0.2",
     "sdkfabric/airtable": "^0.4",
