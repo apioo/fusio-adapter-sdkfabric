@@ -3,6 +3,7 @@
 use Fusio\Adapter\SdkFabric\Connection\Airtable;
 use Fusio\Adapter\SdkFabric\Connection\Discord;
 use Fusio\Adapter\SdkFabric\Connection\Notion;
+use Fusio\Adapter\SdkFabric\Connection\OpenAI;
 use Fusio\Adapter\SdkFabric\Connection\Starwars;
 use Fusio\Adapter\SdkFabric\Connection\Twitter;
 use Fusio\Engine\Adapter\ServiceBuilder;
@@ -13,6 +14,7 @@ return static function (ContainerConfigurator $container) {
     $services->set(Airtable::class);
     $services->set(Discord::class);
     $services->set(Notion::class);
+    $services->set(OpenAI::class);
     $services->set(Starwars::class);
     $services->set(Twitter::class);
 };
