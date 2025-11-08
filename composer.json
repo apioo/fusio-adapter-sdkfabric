@@ -17,8 +17,8 @@
     "psx/api": "^6.0|^7.0",
     "sdkfabric/airtable": "^0.4",
     "sdkfabric/discord": "^0.2",
-    "sdkfabric/notion": "^0.1",
-    "sdkfabric/openai": "^0.1",
+    "sdkfabric/notion": "^0.2",
+    "sdkfabric/openai": "^0.2",
     "sdkfabric/starwars": "^0.1",
     "sdkfabric/twitter": "^3.0"
   },
